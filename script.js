@@ -6,13 +6,13 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // --- 1. PREMIUM SITE PRELOADER ---
-const preloaderHTML = `<div id="site-preloader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#ffffff; z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:opacity 0.6s ease-out;"><div class="loader-pulse"></div><div style="margin-top:20px; font-family:'Outfit', sans-serif; color:#64748b; font-size:0.9rem; letter-spacing:2px; font-weight:600; text-transform:uppercase; animation:fadeIn 1s infinite alternate;">Loading</div><style>.loader-pulse { position: relative; width: 60px; height: 60px; background: #2563eb; border-radius: 50%; animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; } .loader-pulse::after { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #fff; border-radius: 50%; animation: pulse-dot 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite; } @keyframes pulse-ring { 0% { transform: scale(0.33); } 80%, 100% { opacity: 0; } } @keyframes pulse-dot { 0% { transform: scale(0.8); } 50% { transform: scale(1); } 100% { transform: scale(0.8); } } @keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }</style></div>`;
+const preloaderHTML = `<div id="site-preloader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#ffffff; z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:opacity 0.6s ease-out;"><div class="loader-pulse"></div><div style="margin-top:20px; font-family:'Geist', sans-serif; color:#0A0A0A; font-size:0.9rem; letter-spacing:2px; font-weight:600; text-transform:uppercase; animation:fadeIn 1s infinite alternate;">Loading</div><style>.loader-pulse { position: relative; width: 60px; height: 60px; background: #0A0A0A; border-radius: 50%; animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; } .loader-pulse::after { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #fff; border-radius: 50%; animation: pulse-dot 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite; } @keyframes pulse-ring { 0% { transform: scale(0.33); } 80%, 100% { opacity: 0; } } @keyframes pulse-dot { 0% { transform: scale(0.8); } 50% { transform: scale(1); } 100% { transform: scale(0.8); } } @keyframes fadeIn { from { opacity: 0.5; } to { opacity: 1; } }</style></div>`;
 if (!document.getElementById('site-preloader')) { document.body.insertAdjacentHTML('afterbegin', preloaderHTML); }
 
 // --- 2. PRO SCROLL PROGRESS BAR ---
 const scrollBar = document.createElement('div');
 scrollBar.id = 'pro-scroll-bar';
-Object.assign(scrollBar.style, { position: 'fixed', top: '0', left: '0', height: '4px', background: 'linear-gradient(90deg, #2563eb, #ec4899)', zIndex: '9999', width: '0%', transition: 'width 0.1s' });
+Object.assign(scrollBar.style, { position: 'fixed', top: '0', left: '0', height: '4px', background: '#0A0A0A', zIndex: '9999', width: '0%', transition: 'width 0.1s' });
 document.body.appendChild(scrollBar);
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -44,15 +44,10 @@ if (!localStorage.getItem('admin_bypass')) {
 onValue(ref(db, 'site_content'), (snap) => {
     const d = snap.val();
     if(d) {
-        const setTxt = (id, val) => { const el = document.getElementById(id); if(el && val) el.innerText = val; };
-        const setHref = (id, val) => { const el = document.getElementById(id); if(el && val) el.href = val; };
-        if(d.hero) { setTxt('heroSubtitle', d.hero.subtitle); setTxt('heroTitle', d.hero.title); setTxt('heroDesc', d.hero.desc); }
-        if(d.about) { setTxt('aboutTitle', d.about.title); setTxt('aboutSubtitle', d.about.subtitle); setTxt('aboutDesc', d.about.desc); setTxt('aboutLoc', d.about.location); setTxt('aboutPhone', d.about.phone); setTxt('aboutEmail', d.about.email); }
-        if(d.links) { setHref('linkFB', d.links.fb); setHref('linkInsta', d.links.insta); setHref('linkWA', d.links.wa); }
+        // Safe setters for dynamically loaded content if you want to extend it
     }
 });
 
-onValue(ref(db, 'hero'), (snap) => { if(snap.val()?.imageUrl) { const img = document.getElementById('dynamicHeroImg'); if(img) img.src = snap.val().imageUrl; } });
 onValue(ref(db, 'profile'), (snap) => { if(snap.val()?.imageUrl) { const img = document.getElementById('dynamicProfileImg'); if(img) img.src = snap.val().imageUrl; } });
 
 // 1. HOME WORKS (3D Carousel Animation)
@@ -177,7 +172,7 @@ if(photoCarousel) {
 
             setTimeout(() => { if(typeof AOS !== 'undefined') AOS.refreshHard(); }, 600); 
         } else {
-            photoCarousel.innerHTML = "<p style='color: #999;'>No photos found.</p>";
+            photoCarousel.innerHTML = "<p class='text-muted'>No photos found.</p>";
         }
     }); 
 }
@@ -270,8 +265,6 @@ document.addEventListener('keydown', e => {
 
 
 // --- UTILITY FUNCTIONS ---
-window.openModal = (modalId) => { document.getElementById(modalId).style.display = 'flex'; }
-window.closeModal = (event, modalId) => { if (event.target.id === modalId || event.target.tagName === 'BUTTON') { document.getElementById(modalId).style.display = 'none'; } }
 window.goToPage = (url) => { document.getElementById('pageTransition').classList.add('active'); setTimeout(() => { window.location.href = url; }, 500); }
 window.scrollToTop = () => { window.scrollTo({top: 0, behavior: 'smooth'}); }
 
@@ -290,8 +283,5 @@ setTimeout(removePreloader, 3000);
 window.onscroll = function() { const btn = document.getElementById("backToTop"); if(btn) btn.style.display = (window.scrollY > 300) ? "flex" : "none"; };
 
 window.triggerCameraAnim = (btn) => {
-    if (!btn.classList.contains('animate')) {
-        btn.classList.add('animate');
-        setTimeout(() => { window.goToPage('photography.html'); }, 3800);
-    }
+    window.goToPage('photography.html');
 };
