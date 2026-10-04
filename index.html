@@ -1,218 +1,336 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanvir Tasin - Adnan Minimal CV</title>
+    <title>Tanvir Tasin - Portfolio</title>
     <meta name="author" content="Tanvir Tasin">
-    <meta name="description" content="Check out my latest graphic design works, web development, and scouting activities.">
+    <meta name="description" content="B.Sc. Student at Southeast University, Graphic Designer, and Web Developer.">
     
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ttasin2x-droid.github.io/Tanvir-Tasin-Portfolio-/">
-    <meta property="og:title" content="Tanvir Tasin - Minimal CV">
-    <meta property="og:description" content="Passionate about Scouting, Design, and Digital Creativity.">
-    <meta property="og:image" content="https://i.postimg.cc/k43tgVFx/Picsart-26-03-15-23-58-42-967.webp">
-
     <link rel="icon" type="image/png" href="photos/favicon.png">
     
-    <!-- Using standard sans-serif fallback. You can host and link your "Geist" font here -->
+    <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (For the minimalist layout structure) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#ffffff',
+                        foreground: '#0a0a0a',
+                        card: '#ffffff',
+                        muted: '#f5f5f5',
+                        'muted-foreground': '#737373',
+                        border: '#e5e5e5',
+                        primary: '#171717',
+                        'primary-foreground': '#fafafa',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for Carousels & Interactive Components -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="min-h-screen bg-background text-foreground antialiased selection:bg-primary selection:text-primary-foreground pb-24" style="font-family: 'Outfit', sans-serif;">
     
     <div class="page-transition" id="pageTransition"></div>
 
-    <div class="minimal-container">
+    <main class="max-w-2xl mx-auto px-6 py-12 flex flex-col gap-14">
         
-        <!-- Hero Section -->
-        <div class="cv-hero" data-aos="fade-up">
-            <img id="dynamicProfileImg" src="photos/profile.webp" alt="Tanvir Tasin" class="profile-avatar">
-            <h1 class="headline-display">Hi, I'm Tanvir Tasin</h1>
-            <p class="body-lg text-muted hero-desc">
-                B.Sc. Student at Southeast University, Graphic Designer, and Web Developer. I build modern digital experiences, real-world software, and creative designs.
-            </p>
-        </div>
-
-        <!-- About Section -->
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">About</h2>
-            <p class="body-md text-muted">
-                I am Tanvir Tasin (তাসিন), a dedicated student at Southeast University in Bangladesh. Alongside my studies, I work as a Graphic Designer and Web Developer, specializing in minimal aesthetics, vector illustrations, and responsive front-end web applications. My passion for technology and design drives me to constantly explore new tools like Illustrator, Canva, JavaScript, and modern CSS frameworks. Additionally, I am an active Scouter with Bangladesh Scouts, where I apply my creative skills to design promotional materials and manage digital projects that create a positive impact.
-            </p>
-        </div>
-
-        <!-- Work Experience Section -->
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">Work Experience</h2>
-            <div class="cv-list">
-                <div class="cv-list-item">
-                    <div class="cv-list-left">
-                        <div class="cv-logo-wrapper">
-                            <img src="photos/bd-scout.png" alt="BD Scouts">
-                        </div>
-                        <div class="cv-list-text">
-                            <h3 class="headline-sm">Bangladesh Scouts</h3>
-                            <p class="body-sm text-muted">Scouter & Graphic Designer</p>
-                        </div>
-                    </div>
-                    <div class="cv-list-right">
-                        <span class="body-sm text-muted">2025 - 2026</span>
-                    </div>
+        <!-- HERO SECTION (Minimalist Style) -->
+        <section id="hero" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row justify-between gap-6">
+                <div class="flex flex-col gap-3 order-2 md:order-1 flex-1">
+                    <span class="text-4xl font-bold tracking-tighter sm:text-5xl" style="background: linear-gradient(90deg, #A97CF8 -34%, #F38CB8 -17%, #FDCC92 0%, #2563eb 100%); -webkit-background-clip: text; color: transparent;">
+                        Hi, I'm Tanvir Tasin
+                    </span>
+                    <p class="text-muted-foreground md:text-lg leading-relaxed mt-2" id="heroDesc">
+                        B.Sc. Student at Southeast University, Graphic Designer, and Web Developer. I build modern digital experiences and creative designs.
+                    </p>
                 </div>
+                <div class="order-1 md:order-2 shrink-0">
+                    <img src="photos/profile.webp" id="dynamicProfileImg" alt="Tanvir Tasin" class="size-24 md:size-32 rounded-full border shadow-lg ring-4 ring-muted object-cover">
+                </div>
+            </div>
+        </section>
 
-                <div class="cv-list-item">
-                    <div class="cv-list-left">
-                        <div class="cv-logo-wrapper">
-                            <i class="fas fa-briefcase" style="color: var(--primary);"></i>
+        <!-- ABOUT SECTION -->
+        <section id="about" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex flex-col gap-y-4">
+                <h2 class="text-xl font-bold">About</h2>
+                <div class="text-muted-foreground leading-relaxed text-sm md:text-base">
+                    <p id="aboutDesc">I am Tanvir Tasin (তাসিন), a dedicated student at Southeast University in Bangladesh. Alongside my studies, I work as a Graphic Designer and Web Developer, specializing in modern aesthetics, vector illustrations, and responsive web applications. As an active Scouter with Bangladesh Scouts, I apply my creative skills to design promotional materials and manage digital projects that create a positive impact.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORK EXPERIENCE SECTION -->
+        <section id="work" data-aos="fade-up" data-aos-delay="150">
+            <div class="flex flex-col gap-y-6">
+                <h2 class="text-xl font-bold">Work Experience</h2>
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <img src="photos/bd-scout.png" alt="BD Scouts" class="size-10 p-1.5 border rounded-full shadow ring-2 ring-border object-contain bg-muted">
+                            <div class="flex flex-col">
+                                <span class="font-semibold text-foreground">Bangladesh Scouts</span>
+                                <span class="text-sm text-muted-foreground">Scouter & Graphic Designer</span>
+                            </div>
                         </div>
-                        <div class="cv-list-text">
-                            <h3 class="headline-sm">Own</h3>
-                            <p class="body-sm text-muted">Freelance Graphic Designer & Web Developer</p>
-                        </div>
+                        <span class="text-xs text-muted-foreground whitespace-nowrap pt-1">2025 - 2026</span>
                     </div>
-                    <div class="cv-list-right">
-                        <span class="body-sm text-muted">2020 - 2026</span>
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 p-1 border rounded-full shadow ring-2 ring-border flex items-center justify-center bg-muted">
+                                <i class="fas fa-briefcase text-muted-foreground"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-semibold text-foreground">Freelance / Own</span>
+                                <span class="text-sm text-muted-foreground">Graphic Designer & Web Developer</span>
+                            </div>
+                        </div>
+                        <span class="text-xs text-muted-foreground whitespace-nowrap pt-1">2020 - 2026</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Education Section -->
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">Education</h2>
-            <div class="cv-list">
-                <div class="cv-list-item">
-                    <div class="cv-list-left">
-                        <div class="cv-logo-wrapper">
-                            <i class="fas fa-university" style="color: var(--primary);"></i>
+        <!-- EDUCATION SECTION -->
+        <section id="education" data-aos="fade-up" data-aos-delay="200">
+            <div class="flex flex-col gap-y-6">
+                <h2 class="text-xl font-bold">Education</h2>
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 border rounded-full shadow ring-2 ring-border flex items-center justify-center bg-muted">
+                                <i class="fas fa-university text-muted-foreground text-sm"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-semibold text-foreground">Southeast University</span>
+                                <span class="text-sm text-muted-foreground">B.Sc. Student</span>
+                            </div>
                         </div>
-                        <div class="cv-list-text">
-                            <h3 class="headline-sm">Southeast University</h3>
-                            <p class="body-sm text-muted">B.Sc. in Computer Science and Engineering</p>
-                        </div>
+                        <span class="text-xs text-muted-foreground whitespace-nowrap pt-1">2026 - Present</span>
                     </div>
-                    <div class="cv-list-right">
-                        <span class="body-sm text-muted">2026 - Present</span>
-                    </div>
-                </div>
-
-                <div class="cv-list-item">
-                    <div class="cv-list-left">
-                        <div class="cv-logo-wrapper">
-                            <i class="fas fa-graduation-cap" style="color: var(--primary);"></i>
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 border rounded-full shadow ring-2 ring-border flex items-center justify-center bg-muted">
+                                <i class="fas fa-graduation-cap text-muted-foreground text-sm"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-semibold text-foreground">Barguna Govt. College</span>
+                                <span class="text-sm text-muted-foreground">Higher Secondary Certificate (HSC)</span>
+                            </div>
                         </div>
-                        <div class="cv-list-text">
-                            <h3 class="headline-sm">Barguna Govt. College</h3>
-                            <p class="body-sm text-muted">Higher Secondary Certificate (HSC)</p>
-                        </div>
+                        <span class="text-xs text-muted-foreground whitespace-nowrap pt-1">2023 - 2025</span>
                     </div>
-                    <div class="cv-list-right">
-                        <span class="body-sm text-muted">2023 - 2025</span>
-                    </div>
-                </div>
-
-                <div class="cv-list-item">
-                    <div class="cv-list-left">
-                        <div class="cv-logo-wrapper">
-                            <i class="fas fa-school" style="color: var(--primary);"></i>
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 border rounded-full shadow ring-2 ring-border flex items-center justify-center bg-muted">
+                                <i class="fas fa-school text-muted-foreground text-sm"></i>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-semibold text-foreground">Barguna Zilla School</span>
+                                <span class="text-sm text-muted-foreground">Secondary School Certificate (SSC)</span>
+                            </div>
                         </div>
-                        <div class="cv-list-text">
-                            <h3 class="headline-sm">Barguna Zilla School</h3>
-                            <p class="body-sm text-muted">Secondary School Certificate (SSC)</p>
-                        </div>
-                    </div>
-                    <div class="cv-list-right">
-                        <span class="body-sm text-muted">2018 - 2023</span>
+                        <span class="text-xs text-muted-foreground whitespace-nowrap pt-1">2018 - 2023</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Skills Section -->
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">Skills</h2>
-            <div class="skills-flex">
-                <div class="chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="Canva"> Canva</div>
-                <div class="chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Illustrator"> Illustrator</div>
-                <div class="chip"><i class="fas fa-pen-nib"></i> Graphic Design</div>
-                <div class="chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"> HTML</div>
-                <div class="chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"> CSS</div>
-                <div class="chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS"> JavaScript</div>
-                <div class="chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="Git"> GitHub</div>
+        <!-- SKILLS SECTION -->
+        <section id="skills" data-aos="fade-up" data-aos-delay="250">
+            <h2 class="text-xl font-bold mb-4">Skills</h2>
+            <div class="flex flex-wrap gap-2">
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" class="size-4">
+                    <span class="text-sm font-medium">Canva</span>
+                </div>
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" class="size-4">
+                    <span class="text-sm font-medium">Illustrator</span>
+                </div>
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <i class="fas fa-pen-nib text-blue-500 text-sm"></i>
+                    <span class="text-sm font-medium">Graphic Design</span>
+                </div>
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="size-4">
+                    <span class="text-sm font-medium">HTML</span>
+                </div>
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="size-4">
+                    <span class="text-sm font-medium">CSS</span>
+                </div>
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="size-4">
+                    <span class="text-sm font-medium">JavaScript</span>
+                </div>
+                <div class="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2 transition hover:border-gray-400 shadow-sm">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" class="size-4">
+                    <span class="text-sm font-medium">GitHub</span>
+                </div>
             </div>
+        </section>
+
+        <!-- SEPARATOR LINE -->
+        <div class="flex items-center w-full my-4" data-aos="fade-in">
+            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+            <div class="border bg-primary z-10 rounded-xl px-4 py-1 mx-2">
+                <span class="text-background text-sm font-medium">My Creative Works</span>
+            </div>
+            <div class="flex-1 h-px bg-gradient-to-l from-transparent via-border to-transparent"></div>
         </div>
 
-        <!-- Dynamic Sections from Previous Code (Styled Minimally) -->
-        <div class="cv-section" id="my-works" data-aos="fade-up">
-            <h2 class="headline-lg">My Works for Bangladesh Scouts</h2>
-            <p class="body-md text-muted" style="margin-bottom: 24px;">A collection of my graphic design and scouting memories</p>
+        <!-- OLD DYNAMIC SECTIONS PROPERLY EMBEDDED -->
+
+        <!-- My Works Section -->
+        <section id="my-works" data-aos="fade-up">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold tracking-tighter">Bangladesh Scouts</h2>
+                <p class="text-muted-foreground text-sm mt-1">A collection of my graphic design and scouting memories</p>
+            </div>
             
             <div class="carousel-container" id="carousel">
                 <div class="card skeleton-card"></div>
                 <div class="card skeleton-card"></div>
                 <div class="card skeleton-card"></div>
             </div>
-            
-            <div style="margin-top: 40px; text-align: center;">
-                <button onclick="goToPage('all-works.html')" class="btn-primary">View All Works <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
+
+            <div class="flex justify-center mt-10">
+                <button onclick="goToPage('all-works.html')" class="bg-primary text-primary-foreground px-6 py-2.5 rounded-full text-sm font-semibold shadow-md hover:bg-black/90 transition-all flex items-center gap-2">
+                    View All Works <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
-        </div>
+        </section>
 
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">SDGs Projects</h2>
-            <p class="body-md text-muted" style="margin-bottom: 24px;">Sustainable Development Goals Activities</p>
+        <!-- SDGs Section -->
+        <section id="sdgs-section" data-aos="fade-up">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold tracking-tighter">SDGs Projects</h2>
+                <p class="text-muted-foreground text-sm mt-1">Sustainable Development Goals Activities</p>
+            </div>
             <div class="sdg-grid" id="sdgGrid"></div>
-        </div>
+        </section>
 
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">My Photography</h2>
-            <p class="body-md text-muted" style="margin-bottom: 24px;">Moments captured through my lens</p>
-            
+        <!-- Photography Section -->
+        <section id="photography-section" data-aos="fade-up">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold tracking-tighter">My Photography</h2>
+                <p class="text-muted-foreground text-sm mt-1">Moments captured through my lens</p>
+            </div>
+
             <div class="carousel-container" id="photoCarousel">
                 <div class="card skeleton-card"></div>
                 <div class="card skeleton-card"></div>
                 <div class="card skeleton-card"></div>
             </div>
 
-            <div style="margin-top: 40px; text-align: center;">
-                <button onclick="triggerCameraAnim(this)" class="btn-primary">View Gallery <i class="fas fa-camera" style="margin-left: 8px;"></i></button>
+            <div class="flex justify-center mt-10">
+                <button class="btn-camera" onclick="triggerCameraAnim(this)">
+                    <div class="cam-fold-cut"></div>
+                    <div class="cam-fold-flap"></div>
+                    <div class="cam-particles">
+                        <div class="c-dot"></div><div class="c-dot"></div>
+                        <div class="c-dot"></div><div class="c-dot"></div>
+                    </div>
+                    <span class="cam-label default">View Gallery</span>
+                    <span class="cam-label success">
+                        Opening...
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </span>
+                    <div class="camera-group">
+                        <div class="cam-top"></div>
+                        <div class="cam-body">
+                            <div class="cam-flash"></div>
+                        </div>
+                        <div class="cam-lens"></div>
+                    </div>
+                    <div class="flash-overlay"></div>
+                </button>
             </div>
-        </div>
+        </section>
 
-        <div class="cv-section" data-aos="fade-up">
-            <h2 class="headline-lg">My Creations</h2>
-            <p class="body-md text-muted" style="margin-bottom: 24px;">Websites & Apps</p>
-            <div class="creation-bar" id="creationsBar"></div>
-        </div>
-
-        <!-- Contact Section -->
-        <div class="cv-section contact-section" data-aos="fade-up">
-            <div class="contact-pill-badge">Contact</div>
-            <h2 class="headline-display" style="font-size: 36px; margin-bottom: 16px;">Get in Touch</h2>
-            <p class="body-lg text-muted">
-                Want to collaborate? Just poke me a dm with a <a href="mailto:tasintanvir463@gmail.com" class="link-accent">direct email</a> and I'll respond whenever I can.
-            </p>
+        <!-- Creations Section -->
+        <section id="creations-section" data-aos="fade-up">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold tracking-tighter">My Creations</h2>
+                <p class="text-muted-foreground text-sm mt-1">Websites & Apps</p>
+            </div>
             
-            <div class="contact-socials">
-                <a href="https://www.facebook.com/tanvir.tasin.940" target="_blank" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/tanvir_tasin1/" target="_blank" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/+8801533327033" target="_blank" class="social-icon-btn"><i class="fab fa-whatsapp"></i></a>
+            <div class="creation-bar" id="creationsBar"></div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" data-aos="fade-up">
+            <div class="border rounded-2xl p-8 md:p-10 relative bg-card overflow-hidden mt-6">
+                <div class="absolute -top-4 border bg-primary z-10 rounded-xl px-4 py-1 left-1/2 -translate-x-1/2">
+                    <span class="text-primary-foreground text-sm font-medium">Contact</span>
+                </div>
+                <!-- Premium Glass Shine inside Contact Box -->
+                <div class="absolute inset-0 pointer-events-none shine-overlay"></div>
+                
+                <div class="relative flex flex-col items-center gap-4 text-center mt-2">
+                    <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl">Get in Touch</h2>
+                    <p class="mx-auto max-w-lg text-muted-foreground text-balance">Want to collaborate? Just poke me a dm <a href="mailto:tasintanvir463@gmail.com" class="text-blue-500 hover:underline underline-offset-4">with a direct email</a> and I'll respond whenever I can.</p>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <p style="text-align: center; margin-top: 60px; font-size: 14px; color: var(--secondary);">© 2026 Tanvir Tasin. All Rights Reserved.</p>
+        <p class="text-center text-xs text-muted-foreground mt-4 mb-8">© 2026 Tanvir Tasin. All Rights Reserved.</p>
 
-    </div> <!-- End minimal-container -->
+    </main>
 
-    <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+    <!-- FLOATING NAVBAR (Adnan Style) -->
+    <div class="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center">
+        <div class="pointer-events-auto flex items-center gap-2 rounded-full border bg-card/90 px-3 py-2 backdrop-blur-md shadow-lg ring-1 ring-border">
+            <a href="#hero" class="flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent hover:border-border transition-colors">
+                <i class="fas fa-home text-sm"></i>
+            </a>
+            <a href="#" onclick="openModal('scoutModal'); return false;" class="flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent hover:border-border transition-colors">
+                <i class="fas fa-link text-sm"></i>
+            </a>
+            <div class="h-6 w-px bg-border mx-1"></div>
+            <a href="https://www.facebook.com/tanvir.tasin.940" target="_blank" class="flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent hover:border-border transition-colors">
+                <i class="fab fa-facebook-f text-sm"></i>
+            </a>
+            <a href="https://www.instagram.com/tanvir_tasin1/" target="_blank" class="flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent hover:border-border transition-colors">
+                <i class="fab fa-instagram text-sm"></i>
+            </a>
+            <a href="https://wa.me/+8801533327033" target="_blank" class="flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent hover:border-border transition-colors">
+                <i class="fab fa-whatsapp text-sm"></i>
+            </a>
+        </div>
+    </div>
 
+    <!-- LIGHTBOX & MODALS -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
         <i class="fas fa-times close-lightbox" onclick="closeLightbox(event)"></i>
         <div class="lightbox-nav nav-prev" onclick="changeLightboxSlide(-1); event.stopPropagation();">&#10094;</div>
         <div class="lightbox-nav nav-next" onclick="changeLightboxSlide(1); event.stopPropagation();">&#10095;</div>
         <img id="lightbox-img" src="" alt="Full View" onclick="event.stopPropagation();">
+    </div>
+
+    <div id="scoutModal" class="modal-overlay" onclick="closeModal(event, 'scoutModal')">
+        <div class="glass-modal">
+            <h3 style="margin-bottom: 20px; color: var(--foreground); font-weight: 700;">Scouting Profiles</h3>
+            <a href="https://service.scouts.gov.bd/user-verify?scoutID=Be8174" target="_blank" class="modal-btn">Bangladesh Scouts</a>
+            <a href="https://www.scout.org/user/2826044" target="_blank" class="modal-btn">World Scouts</a>
+            <a href="https://sdgs.scout.org/user/3060859" target="_blank" class="modal-btn">SDGs</a>
+            <button onclick="closeModal(event, 'scoutModal')" style="margin-top: 15px; background: none; border: none; cursor: pointer; color: #666; font-size: 0.9rem;">Close</button>
+        </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
