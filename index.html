@@ -127,17 +127,17 @@
             <p class="hero__name" style="font-size: calc(1.12rem + 6px);">Tanvir Tasin</p>
           </div>
 
-          <!-- Added font-size 26px and custom text -->
-          <h1 class="hero__title" style="font-size: 26px;">
-            <span class="hero__line words-stagger" data-delay="100" data-stagger="50" data-duration="480">BBA Student at Southeast University, Graphic Designer, Creative Designer,</span>
-            <span class="hero__line hero__line--with-stack">
-              <span class="hero__line-copy">Active Member of Bangladesh Scouts,</span>
-              <span class="hero__stack-slot" data-stack-burst-trigger="" role="button" tabindex="0" aria-label="Reveal skills">
+          <!-- Fixed wrapping issue with inline styles so it doesn't break the screen width -->
+          <h1 class="hero__title" style="font-size: 26px; white-space: normal; text-align: center; width: 100%;">
+            <span class="words-stagger" data-delay="100" data-stagger="50" data-duration="480" style="display: block; white-space: normal; line-height: 1.4; text-wrap: balance;">BBA Student at Southeast University, Graphic Designer, Creative Designer,</span>
+            <span class="hero__line hero__line--with-stack" style="white-space: normal; display: inline-block; margin: 8px 0;">
+              <span class="hero__line-copy" style="white-space: normal;">Active Member of Bangladesh Scouts,</span>
+              <span class="hero__stack-slot" data-stack-burst-trigger="" role="button" tabindex="0" aria-label="Reveal skills" style="display: inline-flex;">
                 <img class="hero__stack-icon" src="images/icon_stack.svg" alt="">
               </span>
-              <span class="hero__line-copy">and Messenger of Peace</span>
+              <span class="hero__line-copy" style="white-space: normal;">and Messenger of Peace</span>
             </span>
-            <span class="hero__line words-stagger" data-delay="380" data-stagger="100" data-duration="480">working to promote peace, unity, and positive change in the community.</span>
+            <span class="words-stagger" data-delay="380" data-stagger="100" data-duration="480" style="display: block; white-space: normal; line-height: 1.4; text-wrap: balance;">working to promote peace, unity, and positive change in the community.</span>
           </h1>
 
           <div class="hero__mobile-apps" aria-label="Mobile primary links">
@@ -213,9 +213,9 @@
               <span class="project-screen__back-label">Back</span>
             </button>
 
-            <header class="scouts-project__hero" style="width: min(940px, calc(100vw - 72px)); margin: 112px auto 64px; text-align: center;">
-              <h1 style="font-size: 3rem; margin-bottom: 20px;">About Bangladesh Scouts</h1>
-              <p class="scouts-project__summary" style="font-size: 1.2rem; line-height: 1.5; color: var(--page-fg); text-align: left; max-width: 800px; margin: 0 auto;">
+            <header class="scouts-project__hero" style="width: min(940px, calc(100vw - 48px)); margin: 112px auto 64px; text-align: center;">
+              <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px;">About Bangladesh Scouts</h1>
+              <p class="scouts-project__summary" style="font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.6; color: var(--page-fg); text-align: left; max-width: 800px; margin: 0 auto; text-wrap: pretty;">
                 I joined Bangladesh Scouts in 2013 and have over 13 years of scouting experience in leadership, teamwork, community service, and youth development. Throughout my scouting journey, I served as a Senior Sixth Leader (2015–2017) and Senior Patrol Leader at Barguna Zilla School (2021–2023). Since 2023, I have been actively involved as a Rover Scout. I have also been contributing to the Messenger of Peace initiative since 2020, promoting peace, unity, and positive change in the community. My journey with Bangladesh Scouts has strengthened my leadership, creativity, discipline, and commitment to serving society.
               </p>
             </header>
@@ -230,10 +230,10 @@
               <span class="project-screen__back-label">Back</span>
             </button>
 
-            <header class="mop-project__hero" style="width: min(940px, calc(100vw - 72px)); margin: 112px auto 64px; text-align: center;">
-              <h1 style="font-size: 3rem; margin-bottom: 10px;">Messenger of Peace | Work for Peace</h1>
+            <header class="mop-project__hero" style="width: min(940px, calc(100vw - 48px)); margin: 112px auto 64px; text-align: center;">
+              <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 10px;">Messenger of Peace | Work for Peace</h1>
               <p style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: gray; margin-bottom: 30px;">2020–Present</p>
-              <p class="mop-project__summary" style="font-size: 1.2rem; line-height: 1.5; color: var(--page-fg); text-align: left; max-width: 800px; margin: 0 auto;">
+              <p class="mop-project__summary" style="font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.6; color: var(--page-fg); text-align: left; max-width: 800px; margin: 0 auto; text-wrap: pretty;">
                 I have been involved in the Messenger of Peace initiative since 2020, contributing to the promotion of peace, unity, community service, and positive social change through Scouting. My involvement reflects my commitment to building a peaceful and inclusive society, encouraging young people to take positive action, and inspiring others to make a difference in their communities. Through this journey, I continue to strengthen my sense of responsibility, teamwork, leadership, and dedication to serving humanity. 
               </p>
             </header>
