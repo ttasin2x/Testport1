@@ -726,7 +726,9 @@ body[data-view]:not([data-view="home"]) .project-screen__back--fixed {
 .alrosa-project,
 .ddb-project,
 .bbdo-project,
-.personal-project {
+.personal-project,
+.mop-project,
+.scouts-project {
   --case-logo-width: 220px;
   --case-logo-max-height: 92px;
   --case-logo-shift-x: 0px;
@@ -1742,8 +1744,8 @@ body[data-view="personal"] .project-screen__back--inline {
 
 .hero__avatar-stack {
   position: relative;
-  width: 122px;
-  height: 122px;
+  width: 125px;
+  height: 125px;
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -1835,7 +1837,7 @@ body[data-theme="dark"] .avatar-bubble__content {
 
 .hero__name {
   margin: 0;
-  font-size: 1.12rem;
+  font-size: calc(1.12rem + 6px);
   line-height: 1.1;
   font-weight: 400;
 }
@@ -2597,12 +2599,12 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__avatar-stack {
-    width: 102px;
-    height: 102px;
+    width: 105px;
+    height: 105px;
   }
 
   .hero__name {
-    font-size: 1rem;
+    font-size: calc(1rem + 6px);
   }
 
   .hero__title {
@@ -2950,12 +2952,12 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__avatar-stack {
-    width: 72px;
-    height: 72px;
+    width: 75px;
+    height: 75px;
   }
 
   .hero__name {
-    font-size: 0.88rem;
+    font-size: calc(0.88rem + 6px);
     color: color-mix(in srgb, var(--page-fg) 74%, transparent);
   }
 
