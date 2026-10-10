@@ -721,14 +721,16 @@ body[data-view]:not([data-view="home"]) .project-screen__back--fixed {
   color: color-mix(in srgb, var(--page-fg) 86%, transparent);
 }
 
+.project-screen__facts[hidden] {
+  display: none !important;
+}
+
 .staya-project,
 .market-project,
 .alrosa-project,
 .ddb-project,
 .bbdo-project,
-.personal-project,
-.mop-project,
-.scouts-project {
+.personal-project {
   --case-logo-width: 220px;
   --case-logo-max-height: 92px;
   --case-logo-shift-x: 0px;
@@ -1837,7 +1839,7 @@ body[data-theme="dark"] .avatar-bubble__content {
 
 .hero__name {
   margin: 0;
-  font-size: calc(1.12rem + 6px);
+  font-size: 1.495rem;
   line-height: 1.1;
   font-weight: 400;
 }
@@ -1870,6 +1872,17 @@ body[data-theme="dark"] .avatar-bubble__content {
   align-items: center;
   justify-content: center;
   gap: 0.12em;
+}
+
+.hero__title--bio {
+  font-size: 26px;
+  line-height: 1.32;
+  letter-spacing: 0;
+  width: min(100%, 64ch);
+}
+
+.hero__title--bio .hero__line {
+  white-space: normal;
 }
 
 .hero__line-copy {
@@ -2599,12 +2612,12 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__avatar-stack {
-    width: 105px;
-    height: 105px;
+    width: 102px;
+    height: 102px;
   }
 
   .hero__name {
-    font-size: calc(1rem + 6px);
+    font-size: 1rem;
   }
 
   .hero__title {
@@ -2952,12 +2965,12 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__avatar-stack {
-    width: 75px;
-    height: 75px;
+    width: 72px;
+    height: 72px;
   }
 
   .hero__name {
-    font-size: calc(0.88rem + 6px);
+    font-size: 0.88rem;
     color: color-mix(in srgb, var(--page-fg) 74%, transparent);
   }
 
@@ -2967,6 +2980,13 @@ body[data-view="about"] .project-screen {
     font-size: clamp(1.9rem, 1.7vw + 1.52rem, 2.28rem);
     line-height: 0.93;
     letter-spacing: -0.03em;
+  }
+
+  .hero__title--bio {
+    width: min(100%, 40ch);
+    font-size: 26px;
+    line-height: 1.35;
+    letter-spacing: 0;
   }
 
   .hero__line--with-stack {
