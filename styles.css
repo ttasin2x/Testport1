@@ -1883,6 +1883,7 @@ body[data-theme="dark"] .avatar-bubble__content {
 
 .hero__title--bio .hero__line {
   white-space: normal;
+  width: auto;
 }
 
 .hero__line-copy {
@@ -2965,12 +2966,12 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__avatar-stack {
-    width: 72px;
-    height: 72px;
+    width: 75px;
+    height: 75px;
   }
 
   .hero__name {
-    font-size: 0.88rem;
+    font-size: 1.255rem;
     color: color-mix(in srgb, var(--page-fg) 74%, transparent);
   }
 
