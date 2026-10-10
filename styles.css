@@ -246,7 +246,7 @@ body[data-view]:not([data-view="home"]) .dock {
 }
 
 .site-switcher__button:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
   transition: transform 120ms ease-out;
 }
 
@@ -599,12 +599,12 @@ body[data-view]:not([data-view="home"]) .dock {
 }
 
 .project-screen__back:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
   transition: transform 120ms ease-out;
 }
 
 .project-screen__back--fixed:active {
-  transform: translateX(-50%) scale(0.97);
+  transform: translateX(-50%) scale(0.95);
   transition: transform 120ms ease-out;
 }
 
@@ -1839,7 +1839,7 @@ body[data-theme="dark"] .avatar-bubble__content {
 
 .hero__name {
   margin: 0;
-  font-size: 1.495rem;
+  font-size: 26px;
   line-height: 1.1;
   font-weight: 400;
 }
@@ -1875,7 +1875,7 @@ body[data-theme="dark"] .avatar-bubble__content {
 }
 
 .hero__title--bio {
-  font-size: 26px;
+  font-size: 16px;
   line-height: 1.32;
   letter-spacing: 0;
   width: min(100%, 64ch);
@@ -2042,6 +2042,8 @@ body[data-view="ddb"] .project-screen,
 body[data-view="bbdo"] .project-screen,
 body[data-view="personal"] .project-screen,
 body[data-view="aidev"] .project-screen,
+body[data-view="scouts"] .project-screen,
+body[data-view="peace"] .project-screen,
 body[data-view="yandex"] .project-screen {
   padding: 0;
   overflow-y: auto;
@@ -2067,6 +2069,8 @@ body[data-view="ddb"] .project-screen__back,
 body[data-view="bbdo"] .project-screen__back,
 body[data-view="personal"] .project-screen__back,
 body[data-view="aidev"] .project-screen__back,
+body[data-view="scouts"] .project-screen__back,
+body[data-view="peace"] .project-screen__back,
 body[data-view="yandex"] .project-screen__back {
   color: color-mix(in srgb, var(--page-fg) 70%, transparent);
 }
@@ -2516,7 +2520,7 @@ body[data-view="about"] .project-screen {
 }
 
 .dock__link:active .dock__tile {
-  transform: scale(0.93);
+  transform: scale(0.95);
   transition: transform 120ms ease-out;
 }
 
@@ -2613,17 +2617,23 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__avatar-stack {
-    width: 102px;
-    height: 102px;
+    width: 105px;
+    height: 105px;
   }
 
   .hero__name {
-    font-size: 1rem;
+    font-size: 26px;
   }
 
   .hero__title {
     font-size: clamp(2.475rem, 1.2vw + 1.575rem, 3.15rem);
     line-height: 0.94;
+  }
+
+  .hero__title--bio {
+    font-size: 16px;
+    line-height: 1.35;
+    letter-spacing: 0;
   }
 
   .hero__skill-pill {
@@ -2971,7 +2981,7 @@ body[data-view="about"] .project-screen {
   }
 
   .hero__name {
-    font-size: 1.255rem;
+    font-size: 26px;
     color: color-mix(in srgb, var(--page-fg) 74%, transparent);
   }
 
@@ -2985,7 +2995,7 @@ body[data-view="about"] .project-screen {
 
   .hero__title--bio {
     width: min(100%, 40ch);
-    font-size: 26px;
+    font-size: 16px;
     line-height: 1.35;
     letter-spacing: 0;
   }
@@ -3707,5 +3717,127 @@ body[data-view="aidev"] .project-screen__back--inline {
 @media (hover: none), (pointer: coarse) {
   .dock__tile {
     transform: scale(1);
+  }
+}
+
+/* ── Motion language: fade / press / float / shimmer ────────────────────
+   Entrance + interaction feel: soft fade-up entrances, 0.95 press scale
+   on every tap, gentle float on the avatar, shimmer sweep on badges,
+   and scroll-linked letter-spacing spread on section headings. */
+
+@keyframes motion-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motion-fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes motion-float-y {
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes motion-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Hero entrance: avatar pops in, name rises up (bio keeps its blur-rise) */
+.hero__avatar-stack {
+  animation: motion-fade-in-scale 560ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.hero__avatar {
+  animation: motion-float-y 5s ease-in-out 800ms infinite;
+}
+
+.hero__name {
+  animation: motion-fade-in-up 560ms cubic-bezier(0.16, 1, 0.3, 1) 120ms backwards;
+}
+
+/* Press feedback on every tap (mobile app icons) */
+.hero__mobile-app:active .hero__mobile-app-icon {
+  transform: scale(0.95);
+  transition: transform 120ms ease-out;
+}
+
+/* Shimmer sweep across case-study badges */
+.staya-project__badge,
+.market-project__badge,
+.alrosa-project__badge,
+.ddb-project__badge,
+.bbdo-project__badge {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.staya-project__badge::after,
+.market-project__badge::after,
+.alrosa-project__badge::after,
+.ddb-project__badge::after,
+.bbdo-project__badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.55) 50%, transparent 58%);
+  background-size: 220% 100%;
+  animation: motion-shimmer 3.8s linear infinite;
+  pointer-events: none;
+}
+
+/* Headings that spread their letter-spacing while scrolling into view.
+   The spacing itself is driven by JS (data-spread); this just smooths it. */
+[data-spread] {
+  transition: letter-spacing 120ms linear;
+  will-change: letter-spacing;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__avatar-stack,
+  .hero__name {
+    animation: none;
+  }
+
+  .hero__avatar {
+    animation: none;
+  }
+
+  .staya-project__badge::after,
+  .market-project__badge::after,
+  .alrosa-project__badge::after,
+  .ddb-project__badge::after,
+  .bbdo-project__badge::after {
+    animation: none;
+    display: none;
+  }
+
+  [data-spread] {
+    transition: none;
   }
 }
