@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const bbdoProjectPanel = document.querySelector('[data-project-panel="bbdo"]');
   const personalProjectPanel = document.querySelector('[data-project-panel="personal"]');
   const aidevProjectPanel = document.querySelector('[data-project-panel="aidev"]');
+  const scoutsProjectPanel = document.querySelector('[data-project-panel="scouts"]');
+  const peaceProjectPanel = document.querySelector('[data-project-panel="peace"]');
   const aboutProjectPanel = document.querySelector('[data-project-panel="about"]');
   const projectPanelsByView = new Map([
     ["staya", stayaProjectPanel],
@@ -41,6 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ["bbdo", bbdoProjectPanel],
     ["personal", personalProjectPanel],
     ["aidev", aidevProjectPanel],
+    ["scouts", scoutsProjectPanel],
+    ["peace", peaceProjectPanel],
     ["about", aboutProjectPanel],
   ]);
   const aboutTypingHost = document.querySelector("[data-about-typing]");
@@ -1204,7 +1208,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const isBbdo = view === "bbdo";
       const isPersonal = view === "personal";
       const isAidev = view === "aidev";
-      const isCaseStudy = isStaya || isYandex || isAlrosa || isDdb || isBbdo || isPersonal || isAidev;
+      const isScouts = view === "scouts";
+      const isPeace = view === "peace";
+      const isCaseStudy = isStaya || isYandex || isAlrosa || isDdb || isBbdo || isPersonal || isAidev || isScouts || isPeace;
 
       if (projectScreen) {
         if (isHome) {
@@ -1244,6 +1250,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (aidevProjectPanel) {
         aidevProjectPanel.hidden = !isAidev;
+      }
+
+      if (scoutsProjectPanel) {
+        scoutsProjectPanel.hidden = !isScouts;
+      }
+
+      if (peaceProjectPanel) {
+        peaceProjectPanel.hidden = !isPeace;
       }
 
       if (aboutProjectPanel) {
@@ -2052,6 +2066,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const initScrollSpread = () => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const projectScreenEl = document.querySelector(".project-screen");
+    const MIN_TRACKING = 0.02;
+    const MAX_TRACKING = 0.28;
+
+    const updateSpread = () => {
+      const vh = window.innerHeight || 1;
+      document
+        .querySelectorAll(".project-screen__eyebrow, .market-project__badge")
+        .forEach((el) => {
+          if (!(el instanceof HTMLElement) || el.closest("[hidden]")) {
+            return;
+          }
+          const rect = el.getBoundingClientRect();
+          if (rect.bottom < -40 || rect.top > vh + 40) {
+            return;
+          }
+          const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.85)));
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.style.letterSpacing =
+            (MIN_TRACKING + eased * (MAX_TRACKING - MIN_TRACKING)).toFixed(3) + "em";
+          el.setAttribute("data-spread", "");
+        });
+    };
+
+    let ticking = false;
+    const schedule = () => {
+      if (ticking) {
+        return;
+      }
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        updateSpread();
+      });
+    };
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    if (projectScreenEl) {
+      projectScreenEl.addEventListener("scroll", schedule, { passive: true });
+    }
+    document.addEventListener("click", (event) => {
+      if (
+        event.target instanceof HTMLElement &&
+        event.target.closest("[data-view-toggle]")
+      ) {
+        window.setTimeout(schedule, 60);
+        window.setTimeout(schedule, 600);
+        window.setTimeout(schedule, 1200);
+      }
+    });
+
+    schedule();
+  };
+
   const initPersonalCardGalleries = () => {
     const cardContents = [...document.querySelectorAll(".personal-project-card__content")];
     const galleryArrowIcon = `
@@ -2350,6 +2424,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initWordsStagger();
   initProjectTransition();
   initHeroSkillBurst();
+  initScrollSpread();
   initPersonalCardGalleries();
   initProjectGalleries();
 
