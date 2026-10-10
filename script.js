@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const projectEyebrow = document.querySelector(".project-screen__eyebrow");
   const projectLede = document.querySelector(".project-screen__lede");
   const genericProjectPanel = document.querySelector('[data-project-panel="generic"]');
+  const genericProjectFacts = genericProjectPanel ? genericProjectPanel.querySelector(".project-screen__facts") : null;
   const stayaProjectPanel = document.querySelector('[data-project-panel="staya"]');
   const yandexProjectPanel = document.querySelector('[data-project-panel="yandex"]');
   const alrosaProjectPanel = document.querySelector('[data-project-panel="alrosa"]');
@@ -31,10 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const bbdoProjectPanel = document.querySelector('[data-project-panel="bbdo"]');
   const personalProjectPanel = document.querySelector('[data-project-panel="personal"]');
   const aidevProjectPanel = document.querySelector('[data-project-panel="aidev"]');
-  const mopProjectPanel = document.querySelector('[data-project-panel="mop"]');
-  const scoutsProjectPanel = document.querySelector('[data-project-panel="scouts"]');
   const aboutProjectPanel = document.querySelector('[data-project-panel="about"]');
-  
   const projectPanelsByView = new Map([
     ["staya", stayaProjectPanel],
     ["yandex", yandexProjectPanel],
@@ -43,11 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ["bbdo", bbdoProjectPanel],
     ["personal", personalProjectPanel],
     ["aidev", aidevProjectPanel],
-    ["mop", mopProjectPanel],
-    ["scouts", scoutsProjectPanel],
     ["about", aboutProjectPanel],
   ]);
-  
   const aboutTypingHost = document.querySelector("[data-about-typing]");
   const aboutTypingTemplate = document.querySelector("#about-typing-template");
   const pageTransition = document.querySelector(".page-transition");
@@ -110,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return aboutTypingAudio;
   };
 
+  // Detect WebP support
   const checkWebPSupport = (() => {
     const canvas = document.createElement("canvas");
     return () => {
@@ -126,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const getOptimizedImagePath = (src) => {
     if (!supportsWebP || !src) return src;
 
+    // Only convert PNG and JPG/JPEG to WebP
     if (/\.(png|jpe?g)$/i.test(src)) {
       const webpPath = src.replace(/\.(png|jpe?g)$/i, ".webp");
       return webpPath;
@@ -144,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
 
+    // Use optimized image path if available
     const optimizedSrc = element instanceof HTMLImageElement
       ? getOptimizedImagePath(nextSrc)
       : nextSrc;
@@ -1048,18 +1046,17 @@ document.addEventListener("DOMContentLoaded", () => {
         title: "Ai Dev",
         lede: "AI development and research projects showcasing innovation in artificial intelligence.",
       },
-      mop: {
-        eyebrow: "Selected work",
-        title: "Messenger of Peace",
-        lede: "Work for Peace (2020-Present).",
-      },
       scouts: {
-        eyebrow: "Selected work",
-        title: "Bangladesh Scouts",
-        lede: "About my journey with Bangladesh Scouts since 2013.",
-      }
+        eyebrow: "2013–Present",
+        title: "About Bangladesh Scouts",
+        lede: "I joined Bangladesh Scouts in 2013 and have over 13 years of scouting experience in leadership, teamwork, community service, and youth development. Throughout my scouting journey, I served as a Senior Sixth Leader (2015–2017) and Senior Patrol Leader at Barguna Zilla School (2021–2023). Since 2023, I have been actively involved as a Rover Scout. I have also been contributing to the Messenger of Peace initiative since 2020, promoting peace, unity, and positive change in the community. My journey with Bangladesh Scouts has strengthened my leadership, creativity, discipline, and commitment to serving society.",
+      },
+      peace: {
+        eyebrow: "2020–Present",
+        title: "Messenger of Peace | Work for Peace",
+        lede: "I have been involved in the Messenger of Peace initiative since 2020, contributing to the promotion of peace, unity, community service, and positive social change through Scouting. My involvement reflects my commitment to building a peaceful and inclusive society, encouraging young people to take positive action, and inspiring others to make a difference in their communities. Through this journey, I continue to strengthen my sense of responsibility, teamwork, leadership, and dedication to serving humanity.",
+      },
     });
-    
     const SHAPES = Object.freeze({
       collapsed: "M 0 100 V 100 Q 50 100 100 100 V 100 z",
       crest: "M 0 100 V 50 Q 50 0 100 50 V 100 z",
@@ -1077,8 +1074,8 @@ document.addEventListener("DOMContentLoaded", () => {
         bbdo:     { light: "#D4867D", dark: "#6A433F" },
         personal: { light: "#8FB89A", dark: "#485C4D" },
         aidev:    { light: "#D4AF8F", dark: "#6B5D4F" },
-        mop:      { light: "#A9D1C6", dark: "#7EB7AA" },
-        scouts:   { light: "#B98C45", dark: "#D7B06A" },
+        scouts:   { light: "#9DBE8F", dark: "#4E6147" },
+        peace:    { light: "#A9C7E8", dark: "#54657A" },
       },
     });
 
@@ -1148,6 +1145,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (projectLede) {
         projectLede.textContent = project.lede;
       }
+      if (genericProjectFacts) {
+        genericProjectFacts.hidden = view === "scouts" || view === "peace";
+      }
     };
 
     const syncProjectMedia = (view) => {
@@ -1204,9 +1204,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const isBbdo = view === "bbdo";
       const isPersonal = view === "personal";
       const isAidev = view === "aidev";
-      const isMop = view === "mop";
-      const isScouts = view === "scouts";
-      const isCaseStudy = isStaya || isYandex || isAlrosa || isDdb || isBbdo || isPersonal || isAidev || isMop || isScouts;
+      const isCaseStudy = isStaya || isYandex || isAlrosa || isDdb || isBbdo || isPersonal || isAidev;
 
       if (projectScreen) {
         if (isHome) {
@@ -1220,21 +1218,43 @@ document.addEventListener("DOMContentLoaded", () => {
         genericProjectPanel.hidden = isHome || isCaseStudy || isAbout;
       }
 
-      if (stayaProjectPanel) { stayaProjectPanel.hidden = !isStaya; }
-      if (yandexProjectPanel) { yandexProjectPanel.hidden = !isYandex; }
-      if (alrosaProjectPanel) { alrosaProjectPanel.hidden = !isAlrosa; }
-      if (ddbProjectPanel) { ddbProjectPanel.hidden = !isDdb; }
-      if (bbdoProjectPanel) { bbdoProjectPanel.hidden = !isBbdo; }
-      if (personalProjectPanel) { personalProjectPanel.hidden = !isPersonal; }
-      if (aidevProjectPanel) { aidevProjectPanel.hidden = !isAidev; }
-      if (mopProjectPanel) { mopProjectPanel.hidden = !isMop; }
-      if (scoutsProjectPanel) { scoutsProjectPanel.hidden = !isScouts; }
-      if (aboutProjectPanel) { aboutProjectPanel.hidden = !isAbout; }
+      if (stayaProjectPanel) {
+        stayaProjectPanel.hidden = !isStaya;
+      }
+
+      if (yandexProjectPanel) {
+        yandexProjectPanel.hidden = !isYandex;
+      }
+
+      if (alrosaProjectPanel) {
+        alrosaProjectPanel.hidden = !isAlrosa;
+      }
+
+      if (ddbProjectPanel) {
+        ddbProjectPanel.hidden = !isDdb;
+      }
+
+      if (bbdoProjectPanel) {
+        bbdoProjectPanel.hidden = !isBbdo;
+      }
+
+      if (personalProjectPanel) {
+        personalProjectPanel.hidden = !isPersonal;
+      }
+
+      if (aidevProjectPanel) {
+        aidevProjectPanel.hidden = !isAidev;
+      }
+
+      if (aboutProjectPanel) {
+        aboutProjectPanel.hidden = !isAbout;
+      }
 
       projectPanelsByView.forEach((panel, panelView) => {
         if (!(panel instanceof HTMLElement)) {
           return;
         }
+
         panel.toggleAttribute("inert", panelView !== view);
       });
     };
@@ -1431,6 +1451,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const transitionToView = (nextView) => {
+      // Double-click bypass: if already animating to a different view, force-skip to it.
       if (isAnimating) {
         if (nextView && nextView !== currentView) {
           window.gsap.killTweensOf(pageTransitionPath);
@@ -2481,17 +2502,21 @@ document.addEventListener("DOMContentLoaded", () => {
     bubble.classList.add('is-active');
 
     gsap.timeline({ onComplete: () => bubble.classList.remove('is-active') })
+      // Bounce in
       .fromTo(bubble,
         { opacity: 0, y: 50, scale: 0.8 },
         { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "elastic.out" },
         0
       )
+      // Text fade in
       .fromTo(text,
         { opacity: 0 },
         { opacity: 1, duration: 0.3 },
         0.1
       )
+      // Hold (doing nothing for 0.7s)
       .to(bubble, { duration: 0.7 }, 0.6)
+      // Bounce out
       .to(bubble, {
         opacity: 0,
         y: -40,
