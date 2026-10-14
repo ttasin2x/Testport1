@@ -2061,6 +2061,7 @@ body[data-view="about"] .project-screen {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
+  background: #ffffff;
 }
 
 body[data-view="staya"] .project-screen__back,
@@ -2212,10 +2213,6 @@ body[data-view="about"] {
 }
 
 body[data-view="about"] .page-shell,
-body[data-view="about"] .project-screen {
-  background: transparent;
-}
-
 .glass-switcher__defs {
   position: absolute;
   width: 0;
@@ -3848,14 +3845,191 @@ body[data-view="aidev"] .project-screen__back--inline {
    light and dark themes keep working. */
 
 .project-screen__panel.about-screen {
-  width: min(700px, 100%);
+  width: min(720px, 100%);
 }
 
 .about-page {
   width: 100%;
+  max-width: 672px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (min-width: 640px) {
+  .about-page {
+    padding-top: 96px;
+  }
+}
+
+/* ── Faithful moraladnan.me blocks (type scale + alignment from their code) ── */
+.ma-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ma-hero__title {
+  position: relative;
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #0a0a0a;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .ma-hero__title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ma-hero__title {
+    font-size: 3rem;
+  }
+}
+
+.ma-hero__bio {
+  position: relative;
+  margin: 0;
+  max-width: 37.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #737373;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .ma-hero__bio {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ma-hero__bio {
+    font-size: 1.25rem;
+  }
+}
+
+.ma-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ma-heading {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+
+.ma-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ma-prose p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.625;
+  color: #737373;
+  text-wrap: pretty;
+}
+
+.ma-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ma-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ma-item__logo {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e7e7e7;
   display: grid;
-  gap: 64px;
-  padding-bottom: 48px;
+  place-items: center;
+  color: #2563eb;
+  font-size: 1rem;
+}
+
+.ma-item__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ma-item__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ma-item__title {
+  font-size: 0.95rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.ma-item__sub {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #737373;
+}
+
+.ma-item__date {
+  flex: none;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: right;
+  color: #737373;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.ma-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ma-skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #e2e2e2;
+  background: #fafafa;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #0a0a0a;
 }
 
 .about-section {
@@ -4033,22 +4207,26 @@ body[data-theme="dark"] .about-cta {
   color: #161616;
 }
 
-/* Scroll-triggered reveal (moraladnan-style entrance) */
+/* Scroll-triggered reveal (moraladnan-style entrance) — hidden state only
+   applies when JS is running (html.js), so content never blanks without JS. */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
   transition:
     opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.is-visible {
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+html.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  html.js .reveal {
     opacity: 1;
     transform: none;
     transition: none;
@@ -4068,11 +4246,7 @@ body[data-theme="dark"] .about-cta {
 
 .tt-zone {
   width: 100%;
-  background: var(--bg-color);
-  border-radius: 28px;
-  padding: 8px 18px 30px;
   margin-top: 8px;
-  border: 1px solid color-mix(in srgb, var(--page-fg) 8%, transparent);
 }
 
 .tt-zone,
@@ -4427,4 +4601,189 @@ body[data-theme="dark"] .about-cta {
   .tt-exp-row { padding: 14px 14px; gap: 12px; }
   .tt-exp-logo { width: 46px; height: 46px; }
   .tt-exp-date { font-size: 0.75rem; }
+}
+
+/* ── Get in Touch card (from moraladnan.me) ── */
+.ma-contact {
+  width: 100%;
+}
+
+.ma-contact__card {
+  position: relative;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  background: #ffffff;
+}
+
+.ma-contact__badge {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #e7e7e7;
+  background: #0a0a0a;
+  border-radius: 12px;
+  padding: 4px 16px;
+  z-index: 1;
+}
+
+.ma-contact__badge span {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.ma-contact__title {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0a0a0a;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .ma-contact__title {
+    font-size: 3rem;
+  }
+}
+
+.ma-contact__text {
+  margin: 0;
+  max-width: 32rem;
+  font-size: 1rem;
+  line-height: 1.625;
+  color: #737373;
+  text-wrap: balance;
+}
+
+.ma-contact__text a {
+  color: #3b82f6;
+  text-underline-offset: 4px;
+}
+
+.ma-contact__text a:hover {
+  text-decoration: underline;
+}
+
+/* ── Simple SDG list (moraladnan-style) ── */
+.ma-sdg-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ma-sdg-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px solid #f0f0f0;
+  text-decoration: none;
+  transition: padding-left 0.2s ease;
+}
+
+.ma-sdg-item:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+
+.ma-sdg-item:hover {
+  padding-left: 10px;
+}
+
+.ma-sdg-item span {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  line-height: 1.4;
+}
+
+.ma-sdg-thumb {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1f5f9;
+  border: 1px solid #e7e7e7;
+}
+
+.ma-sdg-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ma-sdg-item i {
+  flex: none;
+  font-size: 0.8rem;
+  color: #737373;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.ma-sdg-item:hover i {
+  transform: translate(2px, -2px);
+  color: #0a0a0a;
+}
+
+.ma-skill i {
+  font-size: 0.85rem;
+  color: #2563eb;
+}
+
+/* Align Tanvir's ported sections with the about column */
+.about-page .section-padding {
+  padding: 36px 0;
+}
+
+.about-page .section-title {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.about-page .section-title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: #0a0a0a;
+}
+
+.about-page .section-title p {
+  font-size: 0.95rem;
+}
+
+.about-page .my-creations-section .section-title h2 {
+  font-size: 1.25rem;
+  -webkit-text-fill-color: #0a0a0a;
+  color: #0a0a0a;
+  background: none;
+  animation: none;
+}
+
+.about-page .creation-bar {
+  padding: 20px 0 8px;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.about-page .creation-item {
+  padding: 10px 18px;
+  font-size: 0.85rem;
+}
+
+.about-page .creation-item img {
+  width: 24px;
+  height: 24px;
 }
