@@ -2131,6 +2131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!items.length) {
       return;
     }
+    document.documentElement.classList.add("js");
     if (!("IntersectionObserver" in window)) {
       items.forEach((el) => el.classList.add("is-visible"));
       return;
@@ -2386,22 +2387,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 link.href = item.link || "#";
                 link.target = "_blank";
                 link.rel = "noreferrer";
-                link.className = "sdg-card";
-                const imgWrap = document.createElement("div");
-                imgWrap.className = "sdg-img";
+                link.className = "ma-sdg-item";
+                const thumb = document.createElement("span");
+                thumb.className = "ma-sdg-thumb";
                 const img = document.createElement("img");
-                img.src = item.image || "";
+                img.src = item.image || item.url || "";
                 img.alt = "";
                 img.loading = "lazy";
-                imgWrap.append(img);
-                const textWrap = document.createElement("div");
-                textWrap.className = "sdg-text";
-                const title = document.createElement("h3");
-                title.textContent = item.title || "";
-                textWrap.append(title);
-                link.append(imgWrap, textWrap);
+                thumb.append(img);
+                const label = document.createElement("span");
+                label.textContent = item.title || "";
+                const arrow = document.createElement("i");
+                arrow.className = "fas fa-arrow-up-right";
+                arrow.setAttribute("aria-hidden", "true");
+                link.append(thumb, label, arrow);
                 sdgGrid.append(link);
               });
+            } else {
+              sdgGrid.innerHTML = "<p style='color:#737373;font-size:0.9rem;'>No SDG projects found.</p>";
             }
           });
         }
@@ -2431,11 +2434,19 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (err) {
         const worksEl = document.getElementById("aboutWorks");
         const photosEl = document.getElementById("aboutPhotos");
+        const sdgGridEl = document.getElementById("aboutSdg");
+        const creationsEl = document.getElementById("aboutCreations");
         if (worksEl) {
           worksEl.innerHTML = "<p style='color:#999;'>Couldn't load works.</p>";
         }
         if (photosEl) {
           photosEl.innerHTML = "<p style='color:#999;'>Couldn't load photos.</p>";
+        }
+        if (sdgGridEl) {
+          sdgGridEl.innerHTML = "<p style='color:#737373;font-size:0.9rem;'>Couldn't load SDG projects.</p>";
+        }
+        if (creationsEl) {
+          creationsEl.innerHTML = "<p style='color:#999;font-size:0.9rem;'>Couldn't load creations.</p>";
         }
       }
     })();
